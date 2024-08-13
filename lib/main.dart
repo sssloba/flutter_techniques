@@ -20,6 +20,9 @@ class MainApp extends StatelessWidget {
           color: Colors.blueGrey,
           foregroundColor: Colors.greenAccent,
         ),
+        drawerTheme: DrawerThemeData(
+          backgroundColor: Colors.grey[300],
+        ),
         dividerTheme: const DividerThemeData(
           thickness: 2,
           space: 0,

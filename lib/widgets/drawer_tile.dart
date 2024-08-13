@@ -17,7 +17,11 @@ class DrawerTile extends StatelessWidget {
         ListTile(
             title: Text(
               route.toString(),
-              style: const TextStyle(fontSize: 20.0),
+              style: const TextStyle(
+                fontSize: 20.0,
+                color: Colors.indigoAccent,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             onTap: () {
               Navigator.pop(context);
