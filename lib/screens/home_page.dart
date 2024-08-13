@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_techniques/widgets/app_drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,6 +7,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         title: const Text('FLUTTER TECHNIQUES'),
       ),
