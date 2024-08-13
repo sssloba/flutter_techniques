@@ -29,10 +29,7 @@ class DrawerTile extends StatelessWidget {
                 ),
               );
             }),
-        const Divider(
-          height: 0,
-          thickness: 2,
-        ),
+        const Divider(),
       ],
     );
   }

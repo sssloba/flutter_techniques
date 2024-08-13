@@ -20,6 +20,11 @@ class MainApp extends StatelessWidget {
           color: Colors.blueGrey,
           foregroundColor: Colors.greenAccent,
         ),
+        dividerTheme: const DividerThemeData(
+          thickness: 2,
+          space: 0,
+          color: Colors.blueGrey,
+        ),
       ),
       home: const HomePage(),
     );
