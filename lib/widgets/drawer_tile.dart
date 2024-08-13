@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_techniques/utils/extensions.dart';
 
 class DrawerTile extends StatelessWidget {
   const DrawerTile(
@@ -16,7 +17,7 @@ class DrawerTile extends StatelessWidget {
       children: [
         ListTile(
             title: Text(
-              route.toString(),
+              route.splitOnCapitals(),
               style: const TextStyle(
                 fontSize: 20.0,
                 color: Colors.indigoAccent,
