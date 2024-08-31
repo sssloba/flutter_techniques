@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -101,11 +102,18 @@ class __MultiTapDetectorCounterState extends State<_MultiTapDetectorCounter> {
               setState(() {
                 hitCounter = details.count;
               });
+              Timer(const Duration(milliseconds: 600), () {
+                if (details.count == hitCounter) {
+                  setState(() {
+                    hitCounter = 0;
+                  });
+                }
+              });
             },
           ),
           const SizedBox(height: 30.0),
           Text(
-            'Button tapped $hitCounter times',
+            'Button tapped continuously $hitCounter times',
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
         ],
