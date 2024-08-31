@@ -11,7 +11,7 @@ class MultiTapDetectorDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AppScaffold(
-      title: 'Triple Tap Detector',
+      title: 'Multiple Tap Detector',
       body: Column(
         children: [
           Expanded(child: _MultiTapDetectorCounter()),
