@@ -33,3 +33,34 @@ class TripleTapDetector extends StatelessWidget {
     );
   }
 }
+
+class MultiTapDetector extends StatelessWidget {
+  const MultiTapDetector({
+    required this.child,
+    required this.onMultiTap,
+    super.key,
+  });
+
+  final Widget child;
+  final Function(SerialTapDownDetails details) onMultiTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawGestureDetector(
+      gestures: {
+        // Register a SerialTapGestureRecognizer
+        SerialTapGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<SerialTapGestureRecognizer>(
+          () => SerialTapGestureRecognizer(),
+          (SerialTapGestureRecognizer instance) {
+            instance.onSerialTapDown = (SerialTapDownDetails details) {
+              // Use the [onSerialTapDown] callback to check how many taps have been made
+              onMultiTap(details);
+            };
+          },
+        ),
+      },
+      child: child,
+    );
+  }
+}
