@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_techniques/screens/deboncer/debouncer_demo.dart';
 import 'package:flutter_techniques/screens/home_page.dart';
 import 'package:flutter_techniques/screens/multi_tap_detector/multi_tap_detector_demo.dart';
 import 'package:flutter_techniques/widgets/drawer_tile.dart';
@@ -13,6 +14,7 @@ class AppDrawer extends StatelessWidget {
         children: const [
           DrawerTile(HomePage()),
           DrawerTile(MultiTapDetectorDemo()),
+          DrawerTile(DebouncerDemo()),
         ],
       ),
     );
