@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_techniques/screens/deboncer/debouncer.dart';
+import 'package:flutter_techniques/utils/validators.dart';
 import 'package:flutter_techniques/widgets/app_scaffold.dart';
 
 class DebouncerDemo extends StatefulWidget {
@@ -10,13 +11,18 @@ class DebouncerDemo extends StatefulWidget {
 }
 
 class _DebouncerDemoState extends State<DebouncerDemo> {
-  final TextEditingController _textController = TextEditingController();
+  //final formKey = GlobalKey<FormState>();
+  final TextEditingController _debounceDemoTextController =
+      TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   final Debouncer _debouncer = Debouncer(milliseconds: 600);
+
   String retainedValue = '';
 
   @override
   void dispose() {
-    _textController.dispose();
+    _debounceDemoTextController.dispose();
+    _emailTextController.dispose();
     super.dispose();
   }
 
@@ -29,8 +35,9 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
         child: Wrap(
           spacing: 200.0,
           children: [
+            // debouncer demo
             TextField(
-              controller: _textController,
+              controller: _debounceDemoTextController,
               autofocus: true,
               decoration: const InputDecoration(
                   hintText: 'Type to see retained value by Debouncer',
@@ -61,7 +68,29 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
                 fontWeight: FontWeight.w500,
                 color: Color.fromARGB(255, 153, 231, 156),
               ),
-            )
+            ),
+
+            // email validations
+            TextFormField(
+              controller: _emailTextController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              //key: formKey,
+              autofocus: true,
+              decoration: const InputDecoration(
+                hintText: 'Type some email to see validation',
+                hintStyle: TextStyle(
+                  color: Colors.black26,
+                ),
+                errorText: 'Email field is reqired *',
+              ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Email cannot be empty';
+                }
+                final bool isEmail = Validators().isEmail(value);
+                return isEmail ? 'Email form is ok' : 'Invalid email form';
+              },
+            ),
           ],
         ),
       ),
