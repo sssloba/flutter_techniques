@@ -18,14 +18,22 @@ class Validators {
 
   bool strongPassword(String password) {
     final RegExp passwordRegex = RegExp(
-        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.,^#])[A-Za-z\d@$!%*?&.,^#]{8,}$');
     //  ^: Asserts the start of the string.
     // (?=.*[A-Z]): Positive lookahead to ensure at least one uppercase letter exists.
     // (?=.*[a-z]): Positive lookahead to ensure at least one lowercase letter exists.
     // (?=.*\d): Positive lookahead to ensure at least one digit exists.
-    // (?=.*[@$!%*?&]): Positive lookahead to ensure at least one special character exists. You can add or remove special characters in the square brackets to fit your needs.
-    // [A-Za-z\d@$!%*?&]{8,}: Matches any string that contains only the specified characters and is at least 8 characters long.
+    // (?=.*[@$!%*?&.,^#]): Positive lookahead to ensure at least one special character exists. You can add or remove special characters in the square brackets to fit your needs.
+    // [A-Za-z\d@$!%*?&.,^#]{8,}: Matches any string that contains only the specified characters and is at least 8 characters long.
     // $: Asserts the end of the string.
+    return passwordRegex.hasMatch(password);
+  }
+
+  bool isSymbolAllowed(String password) {
+    final RegExp passwordRegex = RegExp(r'^[A-Za-z\d@$!%*?&.,^#]{1,}$');
+    // [A-Za-z\d@$!%*?&.,^#]{1,}: Matches any string that contains only the specified characters at least once.
+    // If it contains any symbol that doesn't match the pattern such as +,-,/ etc. it will return false.
+    // Can be used in combination with [strongPassword] to announce Users if is used any symbol that is not allowed.
     return passwordRegex.hasMatch(password);
   }
 }
