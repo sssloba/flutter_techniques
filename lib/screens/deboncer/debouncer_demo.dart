@@ -15,6 +15,7 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
   final TextEditingController _debounceDemoTextController =
       TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
   final Debouncer _debouncer = Debouncer(milliseconds: 600);
 
   String retainedValue = '';
@@ -23,6 +24,7 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
   void dispose() {
     _debounceDemoTextController.dispose();
     _emailTextController.dispose();
+    _passwordTextController.dispose();
     super.dispose();
   }
 
@@ -70,12 +72,11 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
               ),
             ),
 
-            // email validations
+            // email validation
             TextFormField(
               controller: _emailTextController,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               //key: formKey,
-              autofocus: true,
               decoration: const InputDecoration(
                 hintText: 'Type some email to see validation',
                 hintStyle: TextStyle(
@@ -89,6 +90,28 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
                 }
                 final bool isEmail = Validators().isEmail(value);
                 return isEmail ? 'Email form is ok' : 'Invalid email form';
+              },
+            ),
+
+            // password validation
+            TextFormField(
+              controller: _passwordTextController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: const InputDecoration(
+                hintText: 'Type some password to see validation',
+                hintStyle: TextStyle(
+                  color: Colors.black26,
+                ),
+                errorText: 'Email field is reqired *',
+              ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Password cannot be empty *';
+                }
+                final bool isEmail = Validators().strongPassword(value);
+                return isEmail
+                    ? 'Password is strong!!! 😎'
+                    : 'Password is week ☹';
               },
             ),
           ],
