@@ -98,18 +98,24 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
               controller: _passwordTextController,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(
-                hintText: 'Type some password to see validation',
-                hintStyle: TextStyle(
-                  color: Colors.black26,
-                ),
-                errorText: 'Email field is reqired *',
-              ),
+                  hintText:
+                      'Type password. Some symbols like +,-,/ etc. are not allowed.',
+                  hintStyle: TextStyle(color: Colors.black26, fontSize: 12),
+                  errorText:
+                      'Password field is reqired *. Some symbols like +,-,/ etc. are not allowed.',
+                  errorMaxLines: 2),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return 'Password cannot be empty *';
+                  return 'Password cannot be empty *.';
                 }
-                final bool isEmail = Validators().strongPassword(value);
-                return isEmail
+                final bool isSymbolAllowed =
+                    Validators().isSymbolAllowed(value);
+                if (!isSymbolAllowed) {
+                  return 'Used symbol which is not allowed ❌';
+                }
+                final bool isStrongPassword =
+                    Validators().strongPassword(value);
+                return isStrongPassword
                     ? 'Password is strong!!! 😎'
                     : 'Password is week ☹';
               },
