@@ -16,6 +16,8 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
       TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _passwordUnrestrictedTextController =
+      TextEditingController();
   final Debouncer _debouncer = Debouncer(milliseconds: 600);
 
   String retainedValue = '';
@@ -25,6 +27,7 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
     _debounceDemoTextController.dispose();
     _emailTextController.dispose();
     _passwordTextController.dispose();
+    _passwordUnrestrictedTextController.dispose();
     super.dispose();
   }
 
@@ -115,6 +118,28 @@ class _DebouncerDemoState extends State<DebouncerDemo> {
                 }
                 final bool isStrongPassword =
                     Validators().strongPassword(value);
+                return isStrongPassword
+                    ? 'Password is strong!!! 😎'
+                    : 'Password is week ☹';
+              },
+            ),
+
+            // unrestricted password validation
+            TextFormField(
+              controller: _passwordUnrestrictedTextController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: const InputDecoration(
+                  hintText: 'Type password. All symbols are allowed.',
+                  hintStyle: TextStyle(color: Colors.black26, fontSize: 12),
+                  errorText:
+                      'Password field is reqired *. All symbols are allowed.',
+                  errorMaxLines: 2),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Password cannot be empty *.';
+                }
+                final bool isStrongPassword =
+                    Validators().strongPasswordUnrestricted(value);
                 return isStrongPassword
                     ? 'Password is strong!!! 😎'
                     : 'Password is week ☹';

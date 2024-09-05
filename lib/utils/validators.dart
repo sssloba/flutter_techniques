@@ -41,10 +41,11 @@ class Validators {
   bool strongPasswordUnrestricted(String password) {
     final RegExp passwordRegex =
         RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$');
-//   (?=.*[\W_]): This ensures that the password includes at least one special character.
-// \W matches any non-word character, which includes symbols, punctuation, and whitespace.
-// _ is added explicitly to include the underscore as well.
-// [A-Za-z\d\W_]{8,}: This allows any character that is an uppercase letter, lowercase letter, digit, or non-word character (which includes most special characters).
+    // All symbols are allowed
+    // (?=.*[\W_]): This ensures that the password includes at least one special character.
+    // --- \W matches any non-word character, which includes symbols, punctuation, and whitespace.
+    // --- _ is added explicitly to include the underscore as well.
+    // [A-Za-z\d\W_]{8,}: This allows any character that is an uppercase letter, lowercase letter, digit, or non-word character (which includes most special characters).
     return passwordRegex.hasMatch(password);
   }
 }
