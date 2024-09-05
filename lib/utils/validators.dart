@@ -25,6 +25,7 @@ class Validators {
     // (?=.*\d): Positive lookahead to ensure at least one digit exists.
     // (?=.*[@$!%*?&.,^#]): Positive lookahead to ensure at least one special character exists. You can add or remove special characters in the square brackets to fit your needs.
     // [A-Za-z\d@$!%*?&.,^#]{8,}: Matches any string that contains only the specified characters and is at least 8 characters long.
+    // --- NOTE: If the password contains even one character that is not set previous square brackets, the entire regex will fail, resulting in no match (returning false as a result).
     // $: Asserts the end of the string.
     return passwordRegex.hasMatch(password);
   }
@@ -34,6 +35,16 @@ class Validators {
     // [A-Za-z\d@$!%*?&.,^#]{1,}: Matches any string that contains only the specified characters at least once.
     // If it contains any symbol that doesn't match the pattern such as +,-,/ etc. it will return false.
     // Can be used in combination with [strongPassword] to announce Users if is used any symbol that is not allowed.
+    return passwordRegex.hasMatch(password);
+  }
+
+  bool strongPasswordUnrestricted(String password) {
+    final RegExp passwordRegex =
+        RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$');
+//   (?=.*[\W_]): This ensures that the password includes at least one special character.
+// \W matches any non-word character, which includes symbols, punctuation, and whitespace.
+// _ is added explicitly to include the underscore as well.
+// [A-Za-z\d\W_]{8,}: This allows any character that is an uppercase letter, lowercase letter, digit, or non-word character (which includes most special characters).
     return passwordRegex.hasMatch(password);
   }
 }
